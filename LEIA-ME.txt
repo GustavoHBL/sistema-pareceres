@@ -1,0 +1,53 @@
+SISTEMA DE PARECERES - EDUCACAO INFANTIL
+=======================================
+
+Funciona SEM INTERNET. Nao precisa instalar nada.
+
+COMO USAR
+1. Copie a pasta "SistemaPareceres" inteira para o computador
+   (por exemplo, para C:\SistemaPareceres). Nao deixe dentro do OneDrive.
+2. De dois cliques em "Iniciar Sistema.bat".
+   O navegador abre sozinho com o sistema.
+   Dica: clique com o botao direito > Enviar para > Area de trabalho
+   (criar atalho), para ter o atalho na area de trabalho.
+3. Para fechar, feche o navegador. Se quiser desligar o sistema
+   por completo, use "Parar Sistema.bat".
+
+Se o Windows mostrar "O Windows protegeu o computador",
+clique em "Mais informacoes" > "Executar assim mesmo" (so na primeira vez).
+
+ORDEM DO PRIMEIRO USO
+1. Configuracoes: nome da escola e cidade.
+2. Professores e equipe: professores, coordenadora, orientadora,
+   secretaria e diretora (com a portaria).
+3. Turmas: crie as turmas, escolha a faixa etaria e os professores.
+4. Alunos: cadastre os alunos de cada turma
+   (o botao "Adicionar varios" aceita colar uma lista de nomes).
+5. Periodos: confira os periodos (1o, 2o, 3o trimestre...) e ajuste se precisar.
+6. Objetivos e Observacoes prontas: frases para marcar no parecer.
+   Objetivos: os do Bercario ja vem cadastrados. Para outras faixas
+   etarias, crie a faixa e use "Colar varios".
+7. Pareceres: "+ Novo parecer", preencha o cadastro inicial e marque
+   os objetivos de cada aluno. Tudo e salvo automaticamente.
+8. "Baixar Word" gera um unico arquivo com um parecer por aluno.
+   "Gerar PDF" abre a impressao: escolha "Salvar como PDF".
+
+IA (OPCIONAL, SEM CUSTO)
+Na Observacao de cada aluno, o botao "Gerar prompt para IA" monta um texto
+com os objetivos marcados (sem o nome da crianca). Copie, cole no ChatGPT,
+e cole a resposta de volta no passo 2. Revise sempre o texto antes de usar.
+O texto do prompt pode ser ajustado em Configuracoes.
+
+ONDE FICAM OS DADOS
+Na pasta "pb_data". NAO apague essa pasta.
+
+BACKUP
+De dois cliques em "Fazer Backup.bat". Ele cria uma copia datada
+na pasta "backups". Guarde essa pasta num pendrive de vez em quando.
+
+Para RESTAURAR um backup: use "Parar Sistema.bat", apague a pasta
+"pb_data" e copie no lugar a pasta "pb_data" de dentro do backup desejado.
+
+AREA TECNICA (opcional)
+Painel administrativo do banco: http://127.0.0.1:8090/_/
+Usuario: admin@pareceres.local   Senha: Pareceres2026

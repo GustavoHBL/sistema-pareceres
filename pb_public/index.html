@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sistema de Pareceres</title>
+  <link rel="stylesheet" href="css/style.css?v=20261027">
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">P</div>
+        <div>
+          <div class="brand-title">Pareceres</div>
+          <div class="brand-sub" id="brand-escola">Educação Infantil</div>
+        </div>
+      </div>
+      <nav id="menu">
+        <a href="#/pareceres" data-r="pareceres"><span class="ic">📝</span> Pareceres</a>
+        <div class="menu-sep">Cadastros</div>
+        <a href="#/turmas" data-r="turmas"><span class="ic">🏫</span> Turmas</a>
+        <a href="#/alunos" data-r="alunos"><span class="ic">🧒</span> Alunos</a>
+        <a href="#/pessoas" data-r="pessoas"><span class="ic">👩‍🏫</span> Professores e equipe</a>
+        <a href="#/periodos" data-r="periodos"><span class="ic">📅</span> Períodos</a>
+        <a href="#/objetivos" data-r="objetivos"><span class="ic">✅</span> Objetivos</a>
+        <a href="#/observacoes" data-r="observacoes"><span class="ic">💬</span> Observações prontas</a>
+        <div class="menu-sep">Sistema</div>
+        <a href="#/config" data-r="config"><span class="ic">⚙️</span> Configurações</a>
+      </nav>
+      <div class="sidebar-foot">Funciona sem internet.<br>Os dados ficam neste computador.</div>
+    </aside>
+    <main id="main"></main>
+  </div>
+
+  <div id="modal-root"></div>
+  <div id="toast-root"></div>
+  <div id="print-root"></div>
+
+  <script src="js/modelo.js?v=20261027"></script>
+  <script src="js/word.js?v=20261027"></script>
+  <script src="js/app.js?v=20261027"></script>
+</body>
+</html>

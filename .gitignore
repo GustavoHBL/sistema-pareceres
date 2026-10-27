@@ -1,0 +1,4 @@
+# Dados reais (alunos, pareceres) - nunca publicar
+pb_data/
+backups/
+*.zip
