@@ -48,6 +48,12 @@ na pasta "backups". Guarde essa pasta num pendrive de vez em quando.
 Para RESTAURAR um backup: use "Parar Sistema.bat", apague a pasta
 "pb_data" e copie no lugar a pasta "pb_data" de dentro do backup desejado.
 
+ATUALIZACAO AUTOMATICA
+Ao clicar em "Iniciar Sistema", o sistema verifica (se houver internet) se existe
+uma versao nova publicada e instala sozinho, mostrando a porcentagem.
+Antes de atualizar, ele faz uma copia dos dados em "backups". Sem internet,
+abre a versao instalada normalmente. A versao atual fica no arquivo VERSAO.txt.
+
 AREA TECNICA (opcional)
 Painel administrativo do banco: http://127.0.0.1:8090/_/
-Usuario: admin@pareceres.local   Senha: Pareceres2026
+Usuario e senha ficam no arquivo pb_data\admin.txt (senha criada em cada computador).

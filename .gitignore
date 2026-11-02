@@ -2,3 +2,6 @@
 pb_data/
 backups/
 *.zip
+
+# Gerados
+dist/
