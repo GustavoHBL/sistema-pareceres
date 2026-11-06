@@ -5,3 +5,4 @@ backups/
 
 # Gerados
 dist/
+pb_public/versao.txt

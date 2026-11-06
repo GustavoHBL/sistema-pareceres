@@ -12,6 +12,8 @@ Write-Host ""
 try { & (Join-Path $PSScriptRoot "atualizar.ps1") -Dir $Dir } catch {
   Write-Host "Não foi possível verificar atualizações. Abrindo a versão instalada." -ForegroundColor Yellow
 }
+# 1b) Mostra a versão instalada na tela do sistema
+try { Copy-Item (Join-Path $Dir "VERSAO.txt") (Join-Path $Dir "pb_public\versao.txt") -Force } catch {}
 Write-Host ""
 
 $exe = Join-Path $Dir "pocketbase.exe"

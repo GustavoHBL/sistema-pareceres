@@ -1173,6 +1173,17 @@ function imprimirPDF(g, alunos, arq) {
   setTimeout(() => window.print(), 300);
 }
 
+// Versão instalada (o "Iniciar Sistema" copia VERSAO.txt para pb_public/versao.txt)
+async function mostrarVersao() {
+  try {
+    const r = await fetch("versao.txt?t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) return;
+    const v = (await r.text()).trim();
+    if (/^[0-9A-Za-z.\-]{1,20}$/.test(v)) $("#versao").textContent = "Versão " + v;
+  } catch (e) {}
+}
+
 // ================= início =================
 atualizarMarca();
+mostrarVersao();
 router();
