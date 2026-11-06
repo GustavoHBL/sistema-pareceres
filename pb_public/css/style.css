@@ -1,3 +1,9 @@
+/*
+  Sistema de Pareceres - Educação Infantil
+  © 2026 GustavoHBL. Todos os direitos reservados.
+  Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+  Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+*/
 :root {
   --bg: #f4f6fb;
   --panel: #ffffff;
@@ -36,6 +42,7 @@ nav a.active { background: var(--pri); color: #fff; }
 .sidebar-foot { font-size: 12px; color: #7e8aa8; padding: 14px 18px; border-top: 1px solid rgba(255,255,255,.08); line-height: 1.5; }
 .sidebar-foot .versao { margin-top: 6px; color: #a3aecb; font-weight: 600; }
 .sidebar-foot .versao:empty { display: none; }
+.sidebar-foot .autor { margin-top: 2px; font-size: 11px; color: #6c7894; }
 
 /* main */
 main { flex: 1; padding: 26px 32px 60px; min-width: 0; }

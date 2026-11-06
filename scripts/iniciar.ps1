@@ -1,4 +1,8 @@
-﻿# Sistema de Pareceres - inicialização (chamado pelo "Iniciar Sistema.bat")
+﻿# Sistema de Pareceres - Educação Infantil
+# © 2026 GustavoHBL. Todos os direitos reservados.
+# Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+# Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+# Sistema de Pareceres - inicialização (chamado pelo "Iniciar Sistema.bat")
 $Dir = Split-Path -Parent $PSScriptRoot
 Set-Location $Dir
 $Host.UI.RawUI.WindowTitle = "Sistema de Pareceres"

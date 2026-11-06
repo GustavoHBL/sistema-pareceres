@@ -1,3 +1,9 @@
+/*
+  Sistema de Pareceres - Educação Infantil
+  © 2026 GustavoHBL. Todos os direitos reservados.
+  Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+  Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+*/
 /// Estrutura inicial do banco - Sistema de Pareceres
 migrate((app) => {
   const pub = { listRule: "", viewRule: "", createRule: "", updateRule: "", deleteRule: "" };

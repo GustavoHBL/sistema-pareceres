@@ -1,3 +1,9 @@
+/*
+  Sistema de Pareceres - Educação Infantil
+  © 2026 GustavoHBL. Todos os direitos reservados.
+  Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+  Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+*/
 /// Cadastro de períodos
 migrate((app) => {
   const c = new Collection({

@@ -1,0 +1,28 @@
+SISTEMA DE PARECERES - EDUCACAO INFANTIL
+Copyright (c) 2026 GustavoHBL. Todos os direitos reservados.
+https://github.com/GustavoHBL/sistema-pareceres
+
+Este software (codigo-fonte, telas, modelos de documento e scripts) e de
+autoria de GustavoHBL.
+
+E PERMITIDO:
+- instalar e usar o sistema nas escolas e computadores autorizados pelo autor.
+
+NAO E PERMITIDO, sem autorizacao previa e por escrito do autor:
+- copiar, modificar, adaptar ou criar obras derivadas deste software;
+- redistribuir, publicar, sublicenciar, vender ou alugar o software,
+  no todo ou em parte;
+- remover ou alterar os avisos de autoria e de direitos autorais.
+
+O fato de o codigo estar visivel publicamente (por exemplo, no GitHub) nao
+concede nenhuma licenca alem das descritas acima.
+
+O SOFTWARE E FORNECIDO "COMO ESTA", SEM GARANTIAS DE QUALQUER TIPO. O autor
+nao se responsabiliza por perdas de dados ou danos decorrentes do uso.
+Faca backups com frequencia (use "Fazer Backup.bat").
+
+COMPONENTES DE TERCEIROS
+O PocketBase (pocketbase.exe) e de outros autores e segue a sua propria
+licenca (MIT), no arquivo pocketbase-LICENSE.md.
+
+Para pedir autorizacao: https://github.com/GustavoHBL

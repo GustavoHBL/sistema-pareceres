@@ -1,6 +1,9 @@
 SISTEMA DE PARECERES - EDUCACAO INFANTIL
 =======================================
 
+Desenvolvido por GustavoHBL - (c) 2026. Todos os direitos reservados.
+https://github.com/GustavoHBL/sistema-pareceres
+
 Funciona SEM INTERNET. Nao precisa instalar nada.
 
 COMO USAR

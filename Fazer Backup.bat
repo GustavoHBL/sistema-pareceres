@@ -1,4 +1,6 @@
 @echo off
+REM Sistema de Pareceres - (c) 2026 GustavoHBL. Todos os direitos reservados.
+REM Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
 title Backup - Sistema de Pareceres
 cd /d "%~dp0"
 if not exist "pb_data" (

@@ -1,4 +1,8 @@
-﻿# Sistema de Pareceres - verificação e instalação de atualizações
+﻿# Sistema de Pareceres - Educação Infantil
+# © 2026 GustavoHBL. Todos os direitos reservados.
+# Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+# Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+# Sistema de Pareceres - verificação e instalação de atualizações
 # Chamado pelo "Iniciar Sistema". Nunca impede o sistema de abrir:
 # qualquer falha (sem internet, download incompleto...) mantém a versão atual.
 param(

@@ -1,3 +1,9 @@
+/*
+  Sistema de Pareceres - Educação Infantil
+  © 2026 GustavoHBL. Todos os direitos reservados.
+  Desenvolvido por GustavoHBL - https://github.com/GustavoHBL/sistema-pareceres
+  Uso, cópia, modificação ou distribuição somente com autorização do autor (veja LICENSE.txt).
+*/
 // Geração do arquivo Word (.docx) a partir do modelo, sem bibliotecas externas.
 (function (global) {
   // ---------- ZIP (sem compressão) ----------
@@ -118,6 +124,14 @@
     const files = [{ name: "[Content_Types].xml", data: b64(M.arquivos["[Content_Types].xml"]) }];
     for (const n in M.arquivos) if (n !== "[Content_Types].xml") files.push({ name: n, data: b64(M.arquivos[n]) });
     files.push({ name: "word/document.xml", data: enc.encode(docXml) });
+    // propriedades do arquivo (Arquivo > Informações / Propriedades > Detalhes)
+    const agora = new Date().toISOString().replace(/\.\d+Z$/, "Z");
+    const core = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+      '<dc:title>Parecer Descritivo</dc:title><dc:creator>Sistema de Pareceres - GustavoHBL</dc:creator><cp:lastModifiedBy>Sistema de Pareceres - GustavoHBL</cp:lastModifiedBy>' +
+      '<dc:description>Gerado pelo Sistema de Pareceres, desenvolvido por GustavoHBL.</dc:description><cp:revision>1</cp:revision>' +
+      `<dcterms:created xsi:type="dcterms:W3CDTF">${agora}</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">${agora}</dcterms:modified></cp:coreProperties>`;
+    const iCore = files.findIndex((f) => f.name === "docProps/core.xml");
+    if (iCore >= 0) files[iCore] = { name: "docProps/core.xml", data: enc.encode(core) };
     return zip(files);
   }
 
