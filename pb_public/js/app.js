@@ -271,7 +271,7 @@ routes.turmas = async (main) => {
       escola: cfg.escola || "",
       turma: t.nome,
       faixa: nome(faixas, t.faixa),
-      profs: (t.professores || []).map((id) => nome(pessoas, id)).filter(Boolean).join(", "),
+      profs: (t.professores || []).map((id) => nome(pessoas, id)).filter(Boolean),
       mes: MESES[r.mes], ano: r.ano,
       orientadora: orientadoras.find((p) => p.id === r.ori)?.nome || "",
     }, lista);
@@ -1223,7 +1223,7 @@ function imprimirChamada(g, alunos) {
       <div class="ch-info">
         <div><b>Turma:</b> ${esc(g.turma)}</div>
         ${g.faixa ? `<div><b>Faixa etária:</b> ${esc(g.faixa)}</div>` : ""}
-        <div><b>Professor(a):</b> ${esc(g.profs) || "—"}</div>
+        <div><b>Professor(a):</b> ${esc(g.profs.join(", ")) || "—"}</div>
         ${g.orientadora ? `<div><b>Orientadora Educacional:</b> ${esc(g.orientadora)}</div>` : ""}
         <div><b>Mês/Ano:</b> ${esc(g.mes)} / ${esc(g.ano)}</div>
       </div>
@@ -1236,8 +1236,7 @@ function imprimirChamada(g, alunos) {
       </table>
       <div class="ch-leg">Legenda sugerida: <b>•</b> ou <b>P</b> = presente &nbsp; <b>F</b> = falta &nbsp; <b>FJ</b> = falta justificada</div>
       <div class="ch-foot">
-        <div><div class="ln"></div>Professor(a)</div>
-        <div><div class="ln"></div>Coordenação</div>
+        ${(g.profs.length ? g.profs : [""]).map((p) => `<div><div class="ln"></div>Professor(a)${p ? `<br>${esc(p)}` : ""}</div>`).join("")}
         <div><div class="ln"></div>Orientadora Educacional${g.orientadora ? `<br>${esc(g.orientadora)}` : ""}</div>
       </div>
     </div>`;
