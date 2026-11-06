@@ -225,17 +225,56 @@ routes.turmas = async (main) => {
       ${turmas.map((t) => `<tr><td><b>${esc(t.nome)}</b></td><td>${esc(nome(faixas, t.faixa)) || '<span class="badge warn">sem faixa</span>'}</td>
         <td>${(t.professores || []).map((id) => esc(nome(pessoas, id))).filter(Boolean).join(", ") || '<span class="hint">nenhum</span>'}</td>
         <td><a href="#/alunos/${t.id}">${alunos.filter((a) => a.turma === t.id).length}</a></td>
-        <td class="act"><button class="sm" data-e="${t.id}">Editar</button> <button class="sm danger" data-d="${t.id}">Excluir</button></td></tr>`).join("") ||
+        <td class="act"><button class="sm" data-ch="${t.id}">📋 Chamada</button> <button class="sm" data-e="${t.id}">Editar</button> <button class="sm danger" data-d="${t.id}">Excluir</button></td></tr>`).join("") ||
         `<tr><td colspan="5" class="empty">Nenhuma turma cadastrada.</td></tr>`}
       </tbody></table></div>`;
     $("#novo").onclick = () => editar();
     $$("[data-e]").forEach((b) => (b.onclick = () => editar(turmas.find((t) => t.id === b.dataset.e))));
+    $$("[data-ch]").forEach((b) => (b.onclick = () => chamada(turmas.find((t) => t.id === b.dataset.ch))));
     $$("[data-d]").forEach((b) => (b.onclick = async () => {
       const t = turmas.find((x) => x.id === b.dataset.d);
       if (alunos.some((a) => a.turma === t.id)) return toast("Esta turma tem alunos. Mova ou exclua os alunos antes.", true);
       if (!(await confirmar(`Excluir a turma <b>${esc(t.nome)}</b>?`))) return;
       try { await api.del("turmas", t.id); turmas.splice(turmas.indexOf(t), 1); draw(); toast("Excluída."); } catch (e) { toast(e.message, true); }
     }));
+  };
+  // lista de chamada: escolhe o mês e a orientadora e abre a impressão
+  const chamada = async (t) => {
+    const lista = alunos.filter((a) => a.turma === t.id).sort(byNumero);
+    if (!lista.length) return toast("Esta turma não tem alunos cadastrados.", true);
+    let orientadoras = [], cfg = {};
+    try { [orientadoras, cfg] = await Promise.all([api.list("pessoas", { filter: `cargo=${q(CARGOS[2])}` }), getConfig()]); } catch (e) { return toast(e.message, true); }
+    orientadoras.sort(byNome);
+    const agora = new Date();
+    const mesSalvo = parseInt(sessionStorage.getItem("ch_mes"), 10);
+    const mes0 = mesSalvo >= 0 && mesSalvo <= 11 ? mesSalvo : agora.getMonth();
+    const ano0 = sessionStorage.getItem("ch_ano") || agora.getFullYear();
+    const ori0 = sessionStorage.getItem("ch_ori") || (orientadoras.length === 1 ? orientadoras[0].id : "");
+    const r = await modal({
+      title: "Lista de chamada — " + t.nome,
+      okText: "Gerar PDF",
+      body: `<div class="grid">
+        <div class="grid g2"><label class="f">Mês<select id="m_mes">${MESES.map((m, i) => `<option value="${i}" ${i === mes0 ? "selected" : ""}>${m}</option>`).join("")}</select></label>
+        <label class="f">Ano<input type="text" inputmode="numeric" id="m_ano" value="${esc(ano0)}"></label></div>
+        <label class="f">Orientadora Educacional<select id="m_ori"><option value="">(não informar)</option>${orientadoras.map((p) => `<option value="${p.id}" ${p.id === ori0 ? "selected" : ""}>${esc(p.nome)}</option>`).join("")}</select>
+          ${orientadoras.length ? "" : '<span class="hint">Nenhuma orientadora cadastrada. Cadastre em "Professores e equipe".</span>'}</label>
+        <p class="hint" style="margin:0">${lista.length} aluno(s), em ordem de número. Os dias letivos são anotados à mão no cabeçalho.</p></div>`,
+      onOk: (b) => {
+        const ano = $("#m_ano", b).value.trim();
+        if (!/^\d{4}$/.test(ano)) { toast("Informe o ano com 4 dígitos.", true); return false; }
+        return { mes: parseInt($("#m_mes", b).value, 10), ano, ori: $("#m_ori", b).value };
+      },
+    });
+    if (!r) return;
+    sessionStorage.setItem("ch_mes", r.mes); sessionStorage.setItem("ch_ano", r.ano); sessionStorage.setItem("ch_ori", r.ori);
+    imprimirChamada({
+      escola: cfg.escola || "",
+      turma: t.nome,
+      faixa: nome(faixas, t.faixa),
+      profs: (t.professores || []).map((id) => nome(pessoas, id)).filter(Boolean).join(", "),
+      mes: MESES[r.mes], ano: r.ano,
+      orientadora: orientadoras.find((p) => p.id === r.ori)?.nome || "",
+    }, lista);
   };
   const editar = async (t) => {
     const sel = new Set(t?.professores || []);
@@ -1167,6 +1206,43 @@ function imprimirPDF(g, alunos, arq) {
   $("#print-root").innerHTML = html;
   const titulo = document.title;
   document.title = arq; // nome sugerido do PDF
+  const fim = () => { document.title = titulo; window.removeEventListener("afterprint", fim); };
+  window.addEventListener("afterprint", fim);
+  toast('Na janela de impressão, escolha "Salvar como PDF".');
+  setTimeout(() => window.print(), 300);
+}
+
+function imprimirChamada(g, alunos) {
+  const DIAS = 22;
+  const cel = '<td class="d"></td>'.repeat(DIAS);
+  // altura da linha: diminui um pouco com muitos alunos para caber numa folha (mínimo 5 mm)
+  const rh = Math.max(5, Math.min(6.4, 124 / alunos.length)).toFixed(2);
+  $("#print-root").innerHTML = `
+    <div class="ch" style="--rh:${rh}mm">
+      <div class="ch-top">${g.escola ? `<div class="ch-esc">${esc(g.escola)}</div>` : ""}<div class="ch-tit">LISTA DE CHAMADA</div></div>
+      <div class="ch-info">
+        <div><b>Turma:</b> ${esc(g.turma)}</div>
+        ${g.faixa ? `<div><b>Faixa etária:</b> ${esc(g.faixa)}</div>` : ""}
+        <div><b>Professor(a):</b> ${esc(g.profs) || "—"}</div>
+        ${g.orientadora ? `<div><b>Orientadora Educacional:</b> ${esc(g.orientadora)}</div>` : ""}
+        <div><b>Mês/Ano:</b> ${esc(g.mes)} / ${esc(g.ano)}</div>
+      </div>
+      <table>
+        <thead>
+          <tr><th class="n" rowspan="2">Nº</th><th class="nm" rowspan="2">Nome do aluno</th><th colspan="${DIAS}">Dias letivos (anote o dia no quadro)</th></tr>
+          <tr class="dia">${'<th class="d"></th>'.repeat(DIAS)}</tr>
+        </thead>
+        <tbody>${alunos.map((a) => `<tr><td class="n">${esc(a.numero ?? "")}</td><td class="nm">${esc(a.nome)}</td>${cel}</tr>`).join("")}</tbody>
+      </table>
+      <div class="ch-leg">Legenda sugerida: <b>•</b> ou <b>P</b> = presente &nbsp; <b>F</b> = falta &nbsp; <b>FJ</b> = falta justificada</div>
+      <div class="ch-foot">
+        <div><div class="ln"></div>Professor(a)</div>
+        <div><div class="ln"></div>Coordenação</div>
+        <div><div class="ln"></div>Orientadora Educacional${g.orientadora ? `<br>${esc(g.orientadora)}` : ""}</div>
+      </div>
+    </div>`;
+  const titulo = document.title;
+  document.title = `Chamada - ${g.turma} - ${g.mes} ${g.ano}`; // nome sugerido do PDF
   const fim = () => { document.title = titulo; window.removeEventListener("afterprint", fim); };
   window.addEventListener("afterprint", fim);
   toast('Na janela de impressão, escolha "Salvar como PDF".');

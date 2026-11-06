@@ -204,4 +204,27 @@ td.act { text-align: right; white-space: nowrap; }
 .pp .ciencia { margin-top: 6px; }
 
 .pp td.profs { vertical-align: middle; padding: 6px 6px 18px; }
+
+/* lista de chamada (folha A4 deitada) */
+@page chamada { size: A4 landscape; margin: 0; }
+.ch { page: chamada; padding: 10mm 10mm; box-sizing: border-box; -webkit-box-decoration-break: clone; box-decoration-break: clone; font-family: Arial, Helvetica, sans-serif; font-size: 9pt; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.ch-top { text-align: center; margin-bottom: 4px; }
+.ch-esc { font-size: 11pt; font-weight: bold; text-transform: uppercase; }
+.ch-tit { font-size: 13pt; font-weight: bold; letter-spacing: .04em; margin-top: 2px; }
+.ch-info { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 6px 0 5px; font-size: 9.5pt; }
+.ch table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.ch th, .ch td { border: 1px solid #333; padding: 0; }
+.ch thead { display: table-header-group; }
+.ch thead th { background: #eee; font-size: 8pt; }
+.ch th.n, .ch td.n { width: 8mm; text-align: center; }
+.ch th.nm { width: 58mm; text-align: left; padding-left: 5px; }
+.ch td.nm { padding-left: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ch tr.dia th.d { height: 7mm; background: #fff; }
+.ch tbody tr { break-inside: avoid; page-break-inside: avoid; }
+.ch tbody td { height: var(--rh, 6.4mm); }
+.ch tbody tr:nth-child(even) td { background: #f6f6f6; }
+.ch-leg { font-size: 8pt; color: #444; margin-top: 5px; }
+.ch-foot { display: flex; justify-content: space-between; gap: 12mm; margin-top: 9mm; text-align: center; font-size: 9pt; break-inside: avoid; page-break-inside: avoid; }
+.ch-foot > div { flex: 1; }
+.ch-foot .ln { border-top: 1px solid #000; margin-bottom: 3px; }
 .pp td.profs .ln { margin-top: 26px !important; }
